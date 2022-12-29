@@ -25,11 +25,11 @@ public class Product {
 
     private Double price;
 
-    private String photo;
+
 
     private Long depositQuantity;
 
-    private Date expiryDate;
+    //private Date expiryDate;
 
     private String description;
 

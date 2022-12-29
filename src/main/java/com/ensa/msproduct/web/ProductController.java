@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/products")
 public interface ProductController {
 
    @PostMapping("/createProduct")
@@ -22,6 +22,7 @@ public interface ProductController {
 
    @GetMapping("/getProduct/{productIdList")
    public List<Product> getProductsById(@PathVariable List<Long> productIdList);
-    @GetMapping
+
+    @GetMapping("/pr")
     List<Product> products();
 }
