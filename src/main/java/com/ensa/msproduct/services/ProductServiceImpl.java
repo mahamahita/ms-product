@@ -2,7 +2,6 @@ package com.ensa.msproduct.services;
 
 import com.ensa.msproduct.dao.ProductRepository;
 import com.ensa.msproduct.entities.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +11,15 @@ import java.util.List;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository repository;
+    private ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository repository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         super();
-        this.repository = repository;
+        this.productRepository = productRepository;
+    }
+    @Override
+    public List<Product> listProduct() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -25,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
         if(id == null) {
             return null;
         }
-        Product product=repository.findById(id).get();
+        Product product=productRepository.findById(id).get();
 
 
         return product;
@@ -36,14 +39,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void createProduct(Product product) {
 
-        repository.save(product);
+        productRepository.save(product);
 
     }
 
     @Override
     public void updateProduct(Product product) {
 
-        repository.save(product);
+        productRepository.save(product);
 
     }
 
@@ -54,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
 
-        Product product=repository.findByDesignation(designation);
+        Product product=productRepository.findByDesignation(designation);
 
         return product;
     }
@@ -62,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
 
-        repository.deleteById(id);
+        productRepository.deleteById(id);
 
     }
 

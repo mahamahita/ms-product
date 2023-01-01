@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ensa.msproduct.entities.Product;
 import com.ensa.msproduct.services.ProductService;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -26,6 +29,15 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
     }
+
+
+
+    @GetMapping("/allProducts")
+    List<Product> products(){
+        return productService.listProduct();
+    }
+
+
 
     @PostMapping("/createProduct")
     public void createProduct(@RequestBody Product product) {
