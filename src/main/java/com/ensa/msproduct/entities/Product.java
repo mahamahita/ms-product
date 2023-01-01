@@ -9,9 +9,6 @@ import lombok.Setter;
 
 import java.util.Date;
 
-import java.util.Date;
-import java.util.Objects;
-
 @Entity
 @Getter
 @Setter
@@ -22,14 +19,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String designation;
-
     private Double price;
-
-
-
     private Long depositQuantity;
 
-    //private Date expiryDate;
+    private String photo;
+    private Date expiryDate;
 
     private String description;
 

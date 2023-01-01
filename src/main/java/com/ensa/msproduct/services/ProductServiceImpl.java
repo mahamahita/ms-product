@@ -12,33 +12,58 @@ import java.util.List;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
+    private ProductRepository repository;
 
-    private ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-
-    @Override
-    public List<Product> listProduct() {
-        return productRepository.findAll();
+    public ProductServiceImpl(ProductRepository repository) {
+        super();
+        this.repository = repository;
     }
 
     @Override
-    public List<Product> createProduct(List<Product> listProduct) {
-      return productRepository.saveAll(listProduct);
+    public Product getProductById(Long id) {
+
+        if(id == null) {
+            return null;
+        }
+        Product product=repository.findById(id).get();
+
+
+        return product;
+    }
+
+
+
+    @Override
+    public void createProduct(Product product) {
+
+        repository.save(product);
+
     }
 
     @Override
-    public List<Product> getProduct() {
-        return productRepository.findAll();
+    public void updateProduct(Product product) {
+
+        repository.save(product);
+
     }
 
     @Override
-    public List<Product> getProductById(List<Long> productIdList) {
-        return productRepository.findAllById(productIdList);
+    public Product getProductByDesignation(String designation) {
+
+        if(designation == null) {
+            return null;
+        }
+
+        Product product=repository.findByDesignation(designation);
+
+        return product;
     }
 
+    @Override
+    public void deleteProduct(Long id) {
+
+        repository.deleteById(id);
+
+    }
 
 }

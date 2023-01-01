@@ -5,11 +5,10 @@ import com.ensa.msproduct.entities.Product;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> listProduct();
 
-    List<Product> createProduct(List<Product> listProduct);
-
-    List<Product> getProduct();
-
-    List<Product> getProductById(List<Long> productIdList);
+    public Product getProductById(Long id);
+    public void createProduct(Product product);
+    public void updateProduct(Product customer);
+    public Product getProductByDesignation(String designation);
+    public void deleteProduct(Long id);
 }
