@@ -9,24 +9,15 @@ import java.util.List;
 
 public interface ProductController {
 
-
-
     public ResponseEntity<Product> getProductById(@PathVariable Long id);
-
-
-
 
     public List<Product> products();
 
-
-
-
-
     public void createProduct(@RequestBody Product product);
 
-    public void updateProduct(@RequestBody Product product);
+    public  ResponseEntity<Product>  updateProduct(@RequestBody Product product, @PathVariable Long id);
 
-    public  ResponseEntity<Product> getProductByDesignation(@PathVariable String designation);
+    public  ResponseEntity<List<Product>> getProductByDesignation(@PathVariable String designation);
 
     public void deleteProduct(@PathVariable Long id);
 

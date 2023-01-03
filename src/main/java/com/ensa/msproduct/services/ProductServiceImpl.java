@@ -2,6 +2,8 @@ package com.ensa.msproduct.services;
 
 import com.ensa.msproduct.dao.ProductRepository;
 import com.ensa.msproduct.entities.Product;
+import com.ensa.msproduct.exceptions.EntityAlreadyExistsException;
+import com.ensa.msproduct.exceptions.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,48 +25,63 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
-
+    public Product getProductById(Long id) throws EntityNotFoundException {
+        Product product=productRepository.findProductById(id);
         if(id == null) {
             return null;
         }
-        Product product=productRepository.findById(id).get();
 
-
-        return product;
-    }
-
-
-
-    @Override
-    public void createProduct(Product product) {
-
-        productRepository.save(product);
-
-    }
-
-    @Override
-    public void updateProduct(Product product) {
-
-        productRepository.save(product);
-
-    }
-
-    @Override
-    public Product getProductByDesignation(String designation) {
-
-        if(designation == null) {
-            return null;
+        if(productRepository.findById(id) == null ){
+            throw new EntityNotFoundException("There is no Product with the id you entered !");
         }
-
-        Product product=productRepository.findByDesignation(designation);
-
         return product;
+
     }
+
+
+
+    @Override
+    public void createProduct(Product product)  {
+        if(productRepository.findProductById(product.getId()) != null ){
+            throw new EntityAlreadyExistsException("This product already exists");
+        }
+        productRepository.save(product);
+
+    }
+
+    @Override
+    public Product updateProduct(Product product,Long id) {
+
+        if(productRepository.findProductById(id) == null ){
+            throw new EntityNotFoundException("There is no product with this id");
+        }
+        Product updatedProduct = productRepository.findById(id).get();
+        updatedProduct.setDesignation(product.getDesignation());
+        updatedProduct.setPrice(product.getPrice());
+        updatedProduct.setPhoto(product.getPhoto());
+        updatedProduct.setDepositQuantity(product.getDepositQuantity());
+        updatedProduct.setExpiryDate(product.getExpiryDate());
+        updatedProduct.setDescription(product.getDescription());
+
+
+        return productRepository.save(updatedProduct);
+    }
+
+    @Override
+    public List<Product> getProductByDesignation(String designation) {
+        List<Product> products = productRepository.findProductByDesignation(designation);
+        if(products.isEmpty() ){
+            throw new EntityNotFoundException("cannot find any product with this designation" );
+        }
+        return products;
+    }
+
 
     @Override
     public void deleteProduct(Long id) {
-
+        if(productRepository.findProductById(id) == null ){
+            throw new EntityNotFoundException("There is no product with this id");
+        }
         productRepository.deleteById(id);
 
     }

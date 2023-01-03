@@ -9,11 +9,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestControllerAdvice
+public class EntityExceptionHandler {
 
-public class ProductExceptionHandler {
-    @ExceptionHandler(value = {IdAlreadyExistException.class})
-
-    public ResponseEntity<EntityException> handleAlreadyExistsException(IdAlreadyExistException e){
+    @ExceptionHandler(value = {EntityAlreadyExistsException.class})
+    public ResponseEntity<EntityException> handleAlreadyExistsException(EntityAlreadyExistsException e){
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         EntityException entityException = new EntityException(
                 e.getMessage(),

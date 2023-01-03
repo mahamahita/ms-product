@@ -43,21 +43,20 @@ public class ProductControllerImpl implements ProductController{
 
     @PostMapping("/createProduct")
     @Override
-
     public void createProduct(@RequestBody Product product) {
         productService.createProduct(product);
     }
-    @PutMapping("/updateProduct")
-    @Override
 
-    public void updateProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+    @PutMapping("/updateProduct/{id}")
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product,@PathVariable Long id) {
+        Product updatedProduct = productService.updateProduct(product,id) ;
+        return ResponseEntity.ok(updatedProduct) ;
     }
     @GetMapping("/getProductByDesignation/{designation}")
     @Override
-
-    public  ResponseEntity<Product> getProductByDesignation(@PathVariable String designation) {
-        return ResponseEntity.ok(productService.getProductByDesignation(designation));
+    public  ResponseEntity<List<Product>> getProductByDesignation(@PathVariable String designation) {
+        List<Product> products = productService.getProductByDesignation(designation);
+        return ResponseEntity.ok(products) ;
     }
     @GetMapping("/deleteProduct/{id}")
     @Override

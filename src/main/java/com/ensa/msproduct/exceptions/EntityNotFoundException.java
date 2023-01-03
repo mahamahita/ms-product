@@ -1,8 +1,8 @@
 package com.ensa.msproduct.exceptions;
 
-public class EntityNotFoundException extends  Exception{
-    public EntityNotFoundException(String msg) {
-        super(msg);
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException (String message ) {
+        super(message);
     }
-}
 
+}
