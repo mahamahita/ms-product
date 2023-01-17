@@ -24,19 +24,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    @Override
-    public Product getProductById(Long id) throws EntityNotFoundException {
-        Product product=productRepository.findProductById(id);
-        if(id == null) {
-            return null;
-        }
-
-        if(productRepository.findById(id) == null ){
-            throw new EntityNotFoundException("There is no Product with the id you entered !");
-        }
-        return product;
-
-    }
 
 
 
@@ -74,6 +61,17 @@ public class ProductServiceImpl implements ProductService {
             throw new EntityNotFoundException("cannot find any product with this designation" );
         }
         return products;
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+        Product product=productRepository.findProductById(id);
+
+        if(productRepository.findProductById(id) == null ){
+            throw new EntityNotFoundException("There is no Product with the id you entered !");
+        }
+        return product;
+
     }
 
 
