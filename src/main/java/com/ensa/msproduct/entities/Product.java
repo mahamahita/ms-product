@@ -21,7 +21,7 @@ public class Product {
     private Long depositQuantity;
 
     private String photo;
-    private Date expiryDate;
+    private String expiryDate;
 
     private String description;
 
