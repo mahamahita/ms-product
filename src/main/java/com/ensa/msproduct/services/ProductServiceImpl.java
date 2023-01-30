@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         updatedProduct.setDepositQuantity(product.getDepositQuantity());
         updatedProduct.setExpiryDate(product.getExpiryDate());
         updatedProduct.setDescription(product.getDescription());
-
+        updatedProduct.setSales(product.getSales());
 
         return productRepository.save(updatedProduct);
     }

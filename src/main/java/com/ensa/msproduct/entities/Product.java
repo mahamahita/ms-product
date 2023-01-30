@@ -26,6 +26,8 @@ public class Product {
     private String description;
 
 
+    private Long sales;
+
 
 
 }
